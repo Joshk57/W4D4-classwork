@@ -52,22 +52,45 @@ p my_min(list)  # =>  -5
 #     sub_arrs.map {|sub_arr| sub_arr.sum}.max # n^2 + n
 # end
 
-#Phase 2
+# #Phase 2
+# def largest_contiguous_subsum(list)
+#     largest_sum = list.first #5 => 8
+#     current_sum = 0
+#     list.each_with_index do |num, idx| #-7, 2
+#         if idx > 0
+#             if largest_sum < largest_sum + num # 8 < 1
+#                 largest_sum += num #
+#             end
+#         end
+#     end
+#     largest_sum
+# end
 def largest_contiguous_subsum(list)
-    largest_sum = list.first #5 => 8
-    current_sum = 0
-    list.each_with_index do |num, idx| #-7, 2
-        if idx > 0
-            if largest_sum < largest_sum + num # 8 < 1
-                largest_sum += num #
-            end
+    largest_sum = list.first
+    current_sum = list.first
+
+    list.each_with_index do |num, idx|
+        next if idx == 0
+        current_sum += num
+        if num > largest_sum
+            largest_sum = num
+        end
+        if current_sum > largest_sum
+            largest_sum = current_sum
+        end
+        if current_sum < 0
+            current_sum = 0
         end
     end
-    largest_sum
+    return largest_sum
 end
+
+
+
 
 list = [5, 3, -7]
 p largest_contiguous_subsum(list) # => 8
+
 
 # possible sub-sums
 [5]           # => 5
