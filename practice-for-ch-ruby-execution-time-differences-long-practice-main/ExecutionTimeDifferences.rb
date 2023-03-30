@@ -31,3 +31,36 @@ end
 
 list = [ 0, 3, 5, 4, -5, 10, 1, 90 ]
 p my_min(list)  # =>  -5
+
+
+# Look at time complexity and switch to Josh
+# O(1 + n * (2*n) + n^2 + n)
+# O(1 + 3n^2 + n)
+# O(n^2 + n)
+# O(n^2)
+
+def largest_contiguous_subsum(list)
+
+    sub_arrs = [] # constant
+
+    (0...list.length).each do |idx1| # O(n)
+        (idx1...list.length).each do |idx2| # O(n)
+            sub_arrs << list[idx1..idx2] # constant + constant
+        end
+    end
+    sub_arrs.map {|sub_arr| sub_arr.sum}.max # n^2 + n
+end
+
+
+
+
+list = [5, 3, -7]
+p largest_contiguous_subsum(list) # => 8
+
+# possible sub-sums
+[5]           # => 5
+[5, 3]        # => 8 --> we want this one
+[5, 3, -7]    # => 1
+[3]           # => 3
+[3, -7]       # => -4
+[-7]          # => -7
