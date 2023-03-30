@@ -39,20 +39,32 @@ p my_min(list)  # =>  -5
 # O(n^2 + n)
 # O(n^2)
 
+#Phase 1
+# def largest_contiguous_subsum(list)
+
+#     sub_arrs = [] # constant
+
+#     (0...list.length).each do |idx1| # O(n)
+#         (idx1...list.length).each do |idx2| # O(n)
+#             sub_arrs << list[idx1..idx2] # constant + constant
+#         end
+#     end
+#     sub_arrs.map {|sub_arr| sub_arr.sum}.max # n^2 + n
+# end
+
+#Phase 2
 def largest_contiguous_subsum(list)
-
-    sub_arrs = [] # constant
-
-    (0...list.length).each do |idx1| # O(n)
-        (idx1...list.length).each do |idx2| # O(n)
-            sub_arrs << list[idx1..idx2] # constant + constant
+    largest_sum = list.first #5 => 8
+    current_sum = 0
+    list.each_with_index do |num, idx| #-7, 2
+        if idx > 0
+            if largest_sum < largest_sum + num # 8 < 1
+                largest_sum += num #
+            end
         end
     end
-    sub_arrs.map {|sub_arr| sub_arr.sum}.max # n^2 + n
+    largest_sum
 end
-
-
-
 
 list = [5, 3, -7]
 p largest_contiguous_subsum(list) # => 8
@@ -64,3 +76,9 @@ p largest_contiguous_subsum(list) # => 8
 [3]           # => 3
 [3, -7]       # => -4
 [-7]          # => -7
+
+list = [2, 3, -6, 7, -6, 7]
+p largest_contiguous_subsum(list) # => 8 (from [7, -6, 7])
+
+list = [-5, -1, -3]
+p largest_contiguous_subsum(list) # => -1 (from [-1])
